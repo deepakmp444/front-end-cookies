@@ -7,7 +7,7 @@ function App() {
 
   const makeCookies = async (e) => {
     e.preventDefault();
-    const cookieChecked = await axios.post("https://3.110.133.6:4000/message", {
+    const cookieChecked = await axios.post("/message", {
       message,
     });
     console.log("cookieChecked:", cookieChecked);
@@ -15,7 +15,7 @@ function App() {
 
   const getCookies = async () => {
     try {
-      const getMessageCookie = await axios.get("https://3.110.133.6:4000/message");
+      const getMessageCookie = await axios.get("/message");
       console.log('getMessageCookie:', getMessageCookie.data.cookieMessage)
     } catch (error) {
       console.log('error:', error)
