@@ -5,22 +5,39 @@ function App() {
   const [message, setMessage] = useState("");
   const [getmessage, setGetMessage] = useState("");
 
-  const makeCookies = async (e) => {
+   const makeCookies = async (e) => {
     e.preventDefault();
-    const cookieChecked = await axios.post("/message", {
-      message,
+    console.log('${process.env.REACT_APP_API}:', process.env.REACT_APP_API)
+
+    const response = await fetch(`${process.env.REACT_APP_API}message`, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "no-cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "include", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify({ message: "message" }), // body data type must match "Content-Type" header
     });
-    console.log("cookieChecked:", cookieChecked);
+    // parses JSON response into native JavaScript objects
+    console.log("response:", response);
+    // console.log("cookieChecked:", cookieChecked);
   };
 
   const getCookies = async () => {
     try {
-      const getMessageCookie = await axios.get("/message");
-      console.log('getMessageCookie:', getMessageCookie.data.cookieMessage)
+      const getMessageCookie = await axios.get(
+        `${process.env.REACT_APP_API}message`
+      );
+      console.log("getMessageCookie:", getMessageCookie.data.cookieMessage);
     } catch (error) {
-      console.log('error:', error)
+      console.log("error:", error);
     }
   };
+
 
   return (
     <div>
